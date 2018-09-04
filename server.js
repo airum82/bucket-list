@@ -21,31 +21,30 @@ app.get('/api/v1/bucket-items', (request, response) => {
 
 app.post('/api/v1/new-item', (request, response) => {
   const item = request.body;
-  const checkFormat = Object.keys(item).filter(key => {
-    return key === 'title' || key === 'description'
+  const checkFormat = Object.values(item).filter(value => {
+    return value.length > 0;
   })
-  if(checkFormat.length !== 2 || Object.keys(item).length !== 2) {
+  if(checkFormat.length !== 2) {
     return response.status(400).json('Error: invalid format')
   }
   item.title = item.title.toLowerCase();
   item.description = item.description.toLowerCase();
   database('list_items').insert(item, 'id')
-    .then(() => {
-      return response.status(201).json('New item added!')
+    .then(id => {
+      return response.status(201).json({ message: 'New item added!', id})
     })
     .catch(err => {
       return response.status(404).json('Missing title or description or invalid format')
     })
 });
 
-app.delete('/api/v1/remove/:title', (request, response) => {
-  const title = request.params.title.toLowerCase();
-  database('list_items').where('title', title).select().del()
+app.delete('/api/v1/remove/:id', (request, response) => {
+  database('list_items').where('id', request.params.id).select().del()
     .then(result => {
       if(result > 0) {
-        return response.status(200).json(`${title} was successfully deleted`);
+        return response.status(200).json("item was successfully deleted");
       } else {
-        return response.status(404).json(`Error: ${title} was not found`);
+        return response.status(404).json('item was not found');
       }
     })
     .catch(err => {

@@ -27,6 +27,10 @@ button {
   box-shadow: 2px 3px;
 }
 
+.error {
+  text-align: center;
+}
+
 .bucket-list article {
   border: 1px solid black;
   box-shadow: 3px 5px;

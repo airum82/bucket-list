@@ -1,16 +1,18 @@
+let listItems = []
+
 const fetchListItems = () => {
   return fetch('/api/v1/bucket-items')
     .then(response =>  response.json())
 }
 
 const deleteItem = () => {
-  const title = $(event.target).siblings('h3').text().toLowerCase();
-  deleteFromDatabase(title);
+  const id = $(event.target).parent().attr('id');
+  deleteFromDatabase(id);
   $(event.target).parent().remove();
 }
 
-const deleteFromDatabase = (title) => {
-  fetch(`/api/v1/remove/${title}`,{
+const deleteFromDatabase = (id) => {
+  fetch(`/api/v1/remove/${id}`,{
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
   })
@@ -19,9 +21,10 @@ const deleteFromDatabase = (title) => {
 }
 
 const displayItems = (items) => {
+  listItems = [...listItems, ...items];
   items.forEach(item => {
     $('.bucket-list').append(
-      `<article>
+      `<article id=${item.id}>
         <button class="delete">delete</button>
         <h3>${item.title}</h3>
         <p>${item.description}</p>
@@ -42,15 +45,23 @@ const addItem = () => {
   event.preventDefault();
   const title = $('.title').val();
   const description = $('.description').val();
-  $('.bucket-list').append(
-    `<article>
-        <button class="delete">delete</button>
-        <h3>${title}</h3>
-        <p>${description}</p>
-      </article>`
-  )
-  $('.delete').on('click', deleteItem);
+  if(!title || !description) {
+    $('.error').text("Your item must have a title and description");
+    return
+  }
+  $('.error').text('');
   postItem(title, description)
+  .then(item => {
+    listItems.push(item)
+    $('.bucket-list').append(
+      `<article id=${item.id}>
+      <button class="delete">delete</button>
+      <h3>${title}</h3>
+      <p>${description}</p>
+      </article>`
+    )
+    $('.delete').on('click', deleteItem);
+    })
   resetForm();
 }
 
@@ -64,13 +75,16 @@ const postItem = (title, description) => {
     title,
     description
   }
-  fetch('/api/v1/new-item',{
+  return fetch('/api/v1/new-item',{
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   }).then(response => {
     return response.json();
-  }).then(result => console.log(result))
+  }).then(result => {
+      body.id = result.id[0]
+      return body
+    })
 }
 
 $('.add-button').on('click', addItem)
