@@ -5,8 +5,8 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('list_items').insert([
-        {id: 1, title: 'Deep South Road Trip', description: 'Take a road trip through the deep south'},
-        {id: 2, title: 'Kendo', description: 'Learn how to fight with a katana'}
+        {id: 1, title: 'deep South Road Trip', description: 'Take a road trip through the deep south'},
+        {id: 2, title: 'kendo', description: 'Learn how to fight with a katana'}
       ]);
     });
 };
