@@ -51,6 +51,12 @@ const addItem = () => {
   )
   $('.delete').on('click', deleteItem);
   postItem(title, description)
+  resetForm();
+}
+
+const resetForm = () => {
+  $('.title').val('');
+  $('.description').val('');
 }
 
 const postItem = (title, description) => {
