@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Kosugi+Maru');
+
+body {
+  font-family: 'Kosugi Maru', sans-serif;
+}
+
 h1 {
   text-align: center;
 }
@@ -23,7 +29,7 @@ button {
 
 .bucket-list article {
   border: 1px solid black;
-  box-shadow: 5px 7px;
+  box-shadow: 3px 5px;
   width: 40%;
   margin: 3% auto;
   
