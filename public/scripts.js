@@ -22,9 +22,9 @@ const displayItems = (items) => {
   items.forEach(item => {
     $('.bucket-list').append(
       `<article>
+        <button class="delete">delete</button>
         <h3>${item.title}</h3>
         <p>${item.description}</p>
-        <button class="delete">delete</button>
         </article>`
       )
     $('.delete').on('click', deleteItem);
@@ -44,10 +44,10 @@ const addItem = () => {
   const description = $('.description').val();
   $('.bucket-list').append(
     `<article>
+        <button class="delete">delete</button>
         <h3>${title}</h3>
         <p>${description}</p>
-        <button class="delete">delete</button>
-        </article>`
+      </article>`
   )
   $('.delete').on('click', deleteItem);
   postItem(title, description)
