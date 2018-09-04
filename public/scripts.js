@@ -1,5 +1,5 @@
 const fetchListItems = () => {
-  return fetch('http://localhost:3000/api/v1/bucket-items')
+  return fetch('/api/v1/bucket-items')
     .then(response =>  response.json())
 }
 
@@ -58,7 +58,7 @@ const postItem = (title, description) => {
     title,
     description
   }
-  fetch('http://localhost:3000/api/v1/new-item',{
+  fetch('/api/v1/new-item',{
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
