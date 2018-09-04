@@ -4,7 +4,18 @@ const fetchListItems = () => {
 }
 
 const deleteItem = () => {
+  const title = $(event.target).siblings('h3').text().toLowerCase();
+  deleteFromDatabase(title);
   $(event.target).parent().remove();
+}
+
+const deleteFromDatabase = (title) => {
+  fetch(`/api/v1/remove/${title}`,{
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  })
+  .then(response => response.json())
+  .then(result => console.log(result))
 }
 
 const displayItems = (items) => {
