@@ -1,0 +1,22 @@
+h1 {
+  text-align: center;
+}
+
+.list-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-form input,
+.description {
+  width: 26%;
+}
+
+.list-form * {
+  margin: 2% auto;
+}
+
+.bucket-list article {
+  width: 40%;
+  margin: 0 auto;
+}
