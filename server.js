@@ -21,14 +21,6 @@ app.get('/api/v1/bucket-items', (request, response) => {
 
 app.post('/api/v1/new-item', (request, response) => {
   const item = request.body;
-  const checkFormat = Object.values(item).filter(value => {
-    return value.length > 0;
-  })
-  if(checkFormat.length !== 2) {
-    return response.status(400).json('Error: invalid format')
-  }
-  item.title = item.title.toLowerCase();
-  item.description = item.description.toLowerCase();
   database('list_items').insert(item, 'id')
     .then(id => {
       return response.status(201).json({ message: 'New item added!', id})

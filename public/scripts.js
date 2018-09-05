@@ -72,8 +72,8 @@ const resetForm = () => {
 
 const postItem = (title, description) => {
   const body = {
-    title,
-    description
+    title: title.toLowerCase(),
+    description: description.toLowerCase()
   }
   return fetch('/api/v1/new-item',{
     method: 'POST',
