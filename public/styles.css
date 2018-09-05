@@ -15,7 +15,7 @@ h1 {
 
 .list-form input,
 .description {
-  box-shadow: 2px 3px;
+  box-shadow: 2px 3px grey;
   width: 26%;
 }
 
@@ -24,7 +24,7 @@ h1 {
 }
 
 button {
-  box-shadow: 2px 3px;
+  box-shadow: 2px 3px grey;
 }
 
 .error {
@@ -33,7 +33,7 @@ button {
 
 .bucket-list article {
   border: 1px solid black;
-  box-shadow: 3px 5px;
+  box-shadow: 3px 5px grey;
   width: 40%;
   margin: 3% auto;
   

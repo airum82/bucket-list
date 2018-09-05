@@ -75,7 +75,7 @@ const postItem = (title, description) => {
     title: title.toLowerCase(),
     description: description.toLowerCase()
   }
-  return fetch('/api/v1/new-item',{
+  return fetch('/api/v1/bucket-items',{
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)

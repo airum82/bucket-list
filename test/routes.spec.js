@@ -21,55 +21,60 @@ describe('Client Routes', () => {
       .get('/api/v1/bucket-items')
       .end((err, response) => {
         response.should.have.status(200);
+        response.body.should.be.a('array');
+        response.body[0].id.should.equal(1)
         response.body[0].should.have.property('title');
         response.body[0].should.have.property('description');
+        response.body[0].title.should.equal('deep south road trip');
+        response.body[0].description.should.equal('Take a road trip through the deep south');
+        response.body.length.should.equal(2);
         done();
       })
   })
 
   it('POST /api/v1/new-item should return a success message', done => {
     chai.request(server)
-      .post('/api/v1/new-item')
+      .post('/api/v1/bucket-items')
       .send({
         title: "next one",
         description: "this is the next item"
       })
       .end((err, response) => {
         response.should.have.status(201);
-        response.body.should.equal('New item added!')
+        response.body.should.deep.equal({ message: 'New item added!', id: [3] })
         done();
       })
   })
 
   it('POST /api/v1/new-item response should say invalid format if mission information', done => {
     chai.request(server)
-      .post('/api/v1/new-item')
+      .post('/api/v1/bucket-items')
       .send({
         description: "umm...where is my title?"
       })
       .end((err, response) => {
-        response.should.have.status(400);
-        response.body.should.equal('Error: invalid format')
+        response.should.have.status(422);
+        response.body.should.equal('Invalid Format')
         done();
       })
   })
 
-  it('DELETE /api/v1/remove/:title', done => {
+  it('DELETE /api/v1/remove/:id', done => {
     chai.request(server)
-      .delete('/api/v1/remove/kendo')
+      .delete('/api/v1/remove/1')
       .end((err, response) => {
         response.should.have.status(200);
-        response.body.should.equal('kendo was successfully deleted');
+        response.body.should.equal("item was successfully deleted");
         done();
       })
   })
 
-  it('DELETE /api/v1/remove/:title', done => {
+  it('DELETE /api/v1/remove/:id', done => {
     chai.request(server)
-      .delete('/api/v1/remove/notThere')
+      .delete('/api/v1/remove/3')
       .end((err, response) => {
         response.should.have.status(404);
-        response.body.should.equal('Error: notthere was not found');
+        response.body.should.equal('Error: item was not found');
         done();
       })
   })
