@@ -12,7 +12,7 @@ const deleteItem = () => {
 }
 
 const deleteFromDatabase = (id) => {
-  fetch(`/api/v1/remove/${id}`,{
+  fetch(`/api/v1/bucket-items/${id}`,{
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
   })

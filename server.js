@@ -33,7 +33,7 @@ app.post('/api/v1/bucket-items', (request, response) => {
     })
 });
 
-app.delete('/api/v1/remove/:id', (request, response) => {
+app.delete('/api/v1/bucket-items/:id', (request, response) => {
   database('list_items').where('id', request.params.id).select().del()
     .then(result => {
       if(result > 0) {

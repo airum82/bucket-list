@@ -59,9 +59,9 @@ describe('Client Routes', () => {
       })
   })
 
-  it('DELETE /api/v1/remove/:id', done => {
+  it('DELETE /api/v1/bucket-items/:id', done => {
     chai.request(server)
-      .delete('/api/v1/remove/1')
+      .delete('/api/v1/bucket-items/1')
       .end((err, response) => {
         response.should.have.status(200);
         response.body.should.equal("item was successfully deleted");
@@ -69,9 +69,9 @@ describe('Client Routes', () => {
       })
   })
 
-  it('DELETE /api/v1/remove/:id', done => {
+  it('DELETE /api/v1/bucket-items/:id', done => {
     chai.request(server)
-      .delete('/api/v1/remove/3')
+      .delete('/api/v1/bucket-items/3')
       .end((err, response) => {
         response.should.have.status(404);
         response.body.should.equal('Error: item was not found');
