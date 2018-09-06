@@ -43,7 +43,7 @@ app.delete('/api/v1/bucket-items/:id', (request, response) => {
       }
     })
     .catch(err => {
-      return response.status(404).json(`Error: item was not found`);
+      return response.status(500).json(`Error: item was not found`);
     })
 });
 
